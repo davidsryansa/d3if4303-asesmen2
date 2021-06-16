@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">Hitung Absensi </string>
+
+    <string name="deskripsi">Indeks Kehadiran (IK) adalah salah satu faktor dimana menentukan lulus
+    atau tidaknya suatu matakulaih, khususnya buat Mahasiswa Telkom University.</string>
+
+    <string name="jumlah_kehadiran">Kehadiran</string>
+    <string name="jumlah_pertemuan">Pertemuan</string>
+
+    <string name="mata_kuliah">Mata Kuliah</string>
+    <string name="mk_matif">Matif 2</string>
+    <string name="mk_pancasila">Pancasila</string>
+    <string name="mk_olahraga">Olahraga</string>
+    <string name="mk_kewirausahaan">Kewirausahaan</string>
+    <string name="mk_mobpro">Mobpro</string>
+    <string name="mk_pt">PT2</string>
+    <string name="mk_ppap">PPAP</string>
+    <string name="mk_bindo">Bhs. Indonesia</string>
+
+    <string name="kampus">Kampus</string>
+    <string name="telkom">Telkom University</string>
+    <string name="laen">Universitas Lain</string>
+
+    <string name="hitung">Hitung</string>
+
+    <string name="persentase_x">Persentase Kehadiran: %1$.2f</string>
+    <string name="sangatAman">Sangat Aman</string>
+    <string name="aman">Aman</string>
+    <string name="tidakAman">Tidak Aman</string>
+    <string name="kategori_x">Kategori: %1$s</string>
+    <string name="kehadiran_invalid" >Kehadiran tidak boleh kosong.</string>
+    <string name="pertemuan_invalid" >Pertemuan tidak boleh kosong.</string>
+    <string name="kampus_invalid" >Kampus tidak boleh kosong.</string>
+</resources>
