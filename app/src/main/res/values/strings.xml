@@ -31,4 +31,12 @@
     <string name="kehadiran_invalid" >Kehadiran tidak boleh kosong.</string>
     <string name="pertemuan_invalid" >Pertemuan tidak boleh kosong.</string>
     <string name="kampus_invalid" >Kampus tidak boleh kosong.</string>
+
+    <string name="t_sangat_aman">Absensi Sangat Aman</string>
+    <string name="t_aman">Absensi Aman</string>
+    <string name="t_tidak_aman">Absensi Tidak Aman</string>
+
+    <string name="tb_sangat_aman">Sangat rajin, jadi tidak ada saran untuk berikan.</string>
+    <string name="tb_aman">Berhati-hatilah, absensi rawan berkurang jika tidak fokus.</string>
+    <string name="tb_tidak_aman">Sudah tidak ada harapan lagi.</string>
 </resources>
