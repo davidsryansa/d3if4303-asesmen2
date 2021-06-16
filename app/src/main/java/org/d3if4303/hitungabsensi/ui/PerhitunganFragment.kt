@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import org.d3if4303.hitungabsensi.R
 import org.d3if4303.hitungabsensi.databinding.FragmentPerhitunganBinding
 
@@ -17,6 +18,11 @@ class PerhitunganFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         binding = FragmentPerhitunganBinding.inflate(layoutInflater, container, false)
         binding.button.setOnClickListener { hitungAbsensi() }
+        binding.tanggapanButton.setOnClickListener { view: View ->
+            view.findNavController().navigate(
+                R.id.action_perhitunganFragment_to_tanggapanFragment
+            )
+        }
         return binding.root
     }
 
@@ -42,6 +48,7 @@ class PerhitunganFragment : Fragment() {
 
         binding.absensiTextView.text = getString(R.string.persentase_x, absensi)
         binding.kategoriTextView.text = getString(R.string.kategori_x, kategori)
+        binding.tanggapanButton.visibility = View.VISIBLE
     }
 
     private fun getKategori(absensi: Float, mkuliah: Boolean): String {

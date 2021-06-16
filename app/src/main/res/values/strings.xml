@@ -39,4 +39,6 @@
     <string name="tb_sangat_aman">Sangat rajin, jadi tidak ada saran untuk berikan.</string>
     <string name="tb_aman">Berhati-hatilah, absensi rawan berkurang jika tidak fokus.</string>
     <string name="tb_tidak_aman">Sudah tidak ada harapan lagi.</string>
+
+    <string name="lihat_tanggapan">Lihat Tanggapan</string>
 </resources>

@@ -9,6 +9,19 @@
         android:id="@+id/perhitunganFragment"
         android:name="org.d3if4303.hitungabsensi.ui.PerhitunganFragment"
         android:label="PerhitunganFragment"
-        tools:layout="@layout/fragment_perhitungan"/>
+        tools:layout="@layout/fragment_perhitungan">
+        <action
+            android:id="@+id/action_perhitunganFragment_to_tanggapanFragment2"
+            app:destination="@id/tanggapanFragment" />
+    </fragment>
+        <action
+            android:id="@+id/action_perhitunganFragment_to_tanggapanFragment"
+            app:destination="@id/tanggapanFragment" />
+
+    <fragment
+        android:id="@+id/tanggapanFragment"
+        android:name="org.d3if4303.hitungabsensi.ui.TanggapanFragment"
+        android:label="SaranFragment"
+        tools:layout="@layout/fragment_tanggapan"/>
 </navigation>
 
