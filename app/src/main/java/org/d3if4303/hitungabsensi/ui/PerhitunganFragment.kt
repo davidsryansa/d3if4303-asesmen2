@@ -9,18 +9,22 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import org.d3if4303.hitungabsensi.R
+import org.d3if4303.hitungabsensi.data.KategoriPresensi
 import org.d3if4303.hitungabsensi.databinding.FragmentPerhitunganBinding
 
 class PerhitunganFragment : Fragment() {
 
     private lateinit var binding: FragmentPerhitunganBinding
+    private lateinit var kategoriPresensi: KategoriPresensi
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         binding = FragmentPerhitunganBinding.inflate(layoutInflater, container, false)
         binding.button.setOnClickListener { hitungAbsensi() }
         binding.tanggapanButton.setOnClickListener { view: View ->
             view.findNavController().navigate(
-                R.id.action_perhitunganFragment_to_tanggapanFragment
+                PerhitunganFragmentDirections
+                    .actionPerhitunganFragmentToTanggapanFragment(kategoriPresensi)
             )
         }
         return binding.root
@@ -52,18 +56,23 @@ class PerhitunganFragment : Fragment() {
     }
 
     private fun getKategori(absensi: Float, mkuliah: Boolean): String {
-        val stringRes = if (mkuliah) {
+        kategoriPresensi = if (mkuliah) {
             when {
-                absensi < 75.0 -> R.string.tidakAman
-                absensi >= 90.0 -> R.string.sangatAman
-                else -> R.string.aman
+                absensi < 75.0 -> KategoriPresensi.TIDAKAMAN
+                absensi >= 90.0 -> KategoriPresensi.SANGATAMAN
+                else -> KategoriPresensi.AMAN
             }
         } else {
             when {
-                absensi < 70.0 -> R.string.tidakAman
-                absensi >= 75.0 -> R.string.sangatAman
-                else -> R.string.aman
+                absensi < 70.0 -> KategoriPresensi.TIDAKAMAN
+                absensi >= 75.0 -> KategoriPresensi.SANGATAMAN
+                else -> KategoriPresensi.AMAN
             }
+        }
+        val stringRes = when (kategoriPresensi) {
+            KategoriPresensi.TIDAKAMAN -> R.string.tidakAman
+            KategoriPresensi.SANGATAMAN -> R.string.sangatAman
+            KategoriPresensi.AMAN -> R.string.aman
         }
         return getString(stringRes)
     }

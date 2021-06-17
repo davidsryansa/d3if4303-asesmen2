@@ -21,7 +21,11 @@
     <fragment
         android:id="@+id/tanggapanFragment"
         android:name="org.d3if4303.hitungabsensi.ui.TanggapanFragment"
-        android:label="SaranFragment"
-        tools:layout="@layout/fragment_tanggapan"/>
+        android:label="tanggapanFragment"
+        tools:layout="@layout/fragment_tanggapan">
+        <argument
+            android:name="kategori"
+            app:argType="org.d3if4303.hitungabsensi.data.KategoriPresensi" />
+    </fragment>
 </navigation>
 

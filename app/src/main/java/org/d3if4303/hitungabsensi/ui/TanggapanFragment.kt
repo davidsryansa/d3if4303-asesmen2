@@ -7,18 +7,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
 import org.d3if4303.hitungabsensi.R
 import org.d3if4303.hitungabsensi.data.KategoriPresensi
 import org.d3if4303.hitungabsensi.databinding.FragmentTanggapanBinding
 
 class TanggapanFragment : Fragment(){
 
+    private val args:  TanggapanFragmentArgs by navArgs()
     private lateinit var binding: FragmentTanggapanBinding
 
     override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?,
                                savedInstanceState: Bundle?): View? {
         binding = FragmentTanggapanBinding.inflate(layoutInflater, container, false)
-        updateUI(KategoriPresensi.SANGATAMAN)
+        updateUI(args.kategori)
         return binding.root
     }
 
