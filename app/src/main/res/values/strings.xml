@@ -54,4 +54,7 @@
 
     <string name="template_bagikan">Jumlah Kehadiran: %1$s kg\nJunlah Pertemuan: %2$s cm
         \nKeterangan Absen: %3$s\n\n%4$s\n%5$s</string>
+
+    <string name="data_kosong">Belum Ada Data</string>
+    <string name="histori">Histori</string>
 </resources>
