@@ -13,4 +13,7 @@ interface AbsensiDao {
 
     @Query("SELECT * FROM absen ORDER BY id DESC")
     fun getLastAbsen(): LiveData<List<AbsensiEntity?>>
+
+    @Query("DELETE FROM absen WHERE id")
+    fun clearData()
 }
