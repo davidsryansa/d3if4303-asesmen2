@@ -1,5 +1,6 @@
 package org.d3if4303.hitungabsensi.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.*
@@ -26,6 +27,7 @@ class PerhitunganFragment : Fragment() {
                     .actionPerhitunganFragmentToTanggapanFragment(kategoriPresensi)
             )
         }
+        binding.shareButton.setOnClickListener { shareData() }
         setHasOptionsMenu(true)
         return binding.root
     }
@@ -66,7 +68,26 @@ class PerhitunganFragment : Fragment() {
 
         binding.absensiTextView.text = getString(R.string.persentase_x, absensi)
         binding.kategoriTextView.text = getString(R.string.kategori_x, kategori)
-        binding.tanggapanButton.visibility = View.VISIBLE
+        binding.buttonGroup.visibility = View.VISIBLE
+    }
+
+    private fun shareData() {
+        val selectedId = binding.radioGroup.checkedRadioButtonId
+        val keter = if (selectedId == R.id.kampusTelkomRadioButton)
+            getString(R.string.telkom)
+        else
+            getString(R.string.laen)
+        val message = getString(R.string.template_bagikan,
+            binding.kehadiranEditText.text,
+            binding.pertemuanEditText.text,
+            keter,
+            binding.absensiTextView.text,
+            binding.kategoriTextView.text )
+        val shareIntent = Intent(Intent.ACTION_SEND)
+        shareIntent.setType("text/plain").putExtra(Intent.EXTRA_TEXT, message)
+        if (shareIntent.resolveActivity( requireActivity().packageManager) != null) {
+            startActivity(shareIntent)
+        }
     }
 
     private fun getKategori(absensi: Float, mkuliah: Boolean): String {
