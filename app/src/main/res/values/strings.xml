@@ -41,4 +41,12 @@
     <string name="tb_tidak_aman">Sudah tidak ada harapan lagi.</string>
 
     <string name="lihat_tanggapan">Lihat Tanggapan</string>
+
+    <string name="copyright">Hitung Absensi adalah sebuah aplikasi untuk menghitung
+        Indeks Kehadiran (IK) dimana Indeks Kehadiran ini menjadi salah satu kriteria buat lulus
+        dari suatu Mata Kuliah.\n\nAplikasi ini dibuat untuk Asesmen dari Mata Kuliah Mobpro di
+        https://github.com/davidsryansa/d3if4303-asesmen2\n\nCopyright © 2021 Davids Ryansa Mamisala.
+        \nAll rights reserved.</string>
+
+    <string name="tentang_aplikasi">Tentang Aplikasi</string>
 </resources>

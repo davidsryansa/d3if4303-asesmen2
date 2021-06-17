@@ -11,13 +11,13 @@
         android:label="PerhitunganFragment"
         tools:layout="@layout/fragment_perhitungan">
         <action
-            android:id="@+id/action_perhitunganFragment_to_tanggapanFragment2"
-            app:destination="@id/tanggapanFragment" />
-    </fragment>
-        <action
             android:id="@+id/action_perhitunganFragment_to_tanggapanFragment"
             app:destination="@id/tanggapanFragment" />
 
+        <action
+            android:id="@+id/action_perhitunganFragment_to_aboutFragment"
+            app:destination="@+id/aboutFragment"/>
+    </fragment>
     <fragment
         android:id="@+id/tanggapanFragment"
         android:name="org.d3if4303.hitungabsensi.ui.TanggapanFragment"
@@ -26,6 +26,12 @@
         <argument
             android:name="kategori"
             app:argType="org.d3if4303.hitungabsensi.data.KategoriPresensi" />
+    </fragment>
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="org.d3if4303.hitungabsensi.ui.AboutFragment"
+        android:label="@string/tentang_aplikasi"
+        tools:layout="@layout/fragment_about">
     </fragment>
 </navigation>
 
