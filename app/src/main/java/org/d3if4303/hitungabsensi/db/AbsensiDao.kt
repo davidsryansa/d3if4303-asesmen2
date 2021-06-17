@@ -11,6 +11,6 @@ interface AbsensiDao {
     @Insert
     fun insert(absen: AbsensiEntity)
 
-    @Query("SELECT * FROM absen ORDER BY id DESC LIMIT 1")
-    fun getLastAbsen(): LiveData<AbsensiEntity?>
+    @Query("SELECT * FROM absen ORDER BY id DESC")
+    fun getLastAbsen(): LiveData<List<AbsensiEntity?>>
 }

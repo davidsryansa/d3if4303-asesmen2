@@ -71,11 +71,6 @@ class PerhitunganFragment : Fragment() {
                 getKategori(it.kategori))
             binding.buttonGroup.visibility = View.VISIBLE
         })
-
-        viewModel.data.observe(viewLifecycleOwner, {
-            if (it == null) return@observe
-            Log.d("PerhitunganFragment", "Data Tersimpan. ID = ${it.id}")
-        })
     }
 
     private fun hitungAbsensi() {

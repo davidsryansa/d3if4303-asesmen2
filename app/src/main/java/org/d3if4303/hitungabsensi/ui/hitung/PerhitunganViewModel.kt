@@ -20,10 +20,6 @@ class PerhitunganViewModel(private val db: AbsensiDao): ViewModel() {
     // Navigasi akan bernilai null ketika tidak bernavigasi
     private val navigasi = MutableLiveData<KategoriPresensi>()
 
-    // Variabel ini sudah berupa LiveData (tidak mutable),
-    // sehingga tidak perlu dijadikan private
-    val data = db.getLastAbsen()
-
     fun hitungAbsensi(kehadiran: String, pertemuan: String, mkuliah: Boolean){
         val absensi = 100 * (kehadiran.toFloat() / pertemuan.toFloat())
         val kategori = if (mkuliah) {
