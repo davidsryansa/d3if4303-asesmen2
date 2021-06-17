@@ -57,4 +57,7 @@
 
     <string name="data_kosong">Belum Ada Data</string>
     <string name="histori">Histori</string>
+
+    <string name="kehadiran_x">BB: %1$.1f</string>
+    <string name="pertemuan_x">TB: %1$.1f</string>
 </resources>

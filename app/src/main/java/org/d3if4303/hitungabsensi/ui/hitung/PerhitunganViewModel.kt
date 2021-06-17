@@ -8,6 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.d3if4303.hitungabsensi.data.HasilAbsensi
+import org.d3if4303.hitungabsensi.data.HitungAbsensi
 import org.d3if4303.hitungabsensi.data.KategoriPresensi
 import org.d3if4303.hitungabsensi.db.AbsensiDao
 import org.d3if4303.hitungabsensi.db.AbsensiEntity
@@ -21,29 +22,16 @@ class PerhitunganViewModel(private val db: AbsensiDao): ViewModel() {
     private val navigasi = MutableLiveData<KategoriPresensi>()
 
     fun hitungAbsensi(kehadiran: String, pertemuan: String, mkuliah: Boolean){
-        val absensi = 100 * (kehadiran.toFloat() / pertemuan.toFloat())
-        val kategori = if (mkuliah) {
-            when {
-                absensi < 75.0 -> KategoriPresensi.TIDAKAMAN
-                absensi >= 90.0 -> KategoriPresensi.SANGATAMAN
-                else -> KategoriPresensi.AMAN
-            }
-        } else {
-            when {
-                absensi < 70.0 -> KategoriPresensi.TIDAKAMAN
-                absensi >= 75.0 -> KategoriPresensi.SANGATAMAN
-                else -> KategoriPresensi.AMAN
-            }
-        }
-        hasilAbsensi.value = HasilAbsensi (absensi, kategori)
+        val dataAbsensi = AbsensiEntity(
+            kehadiran = kehadiran.toFloat(),
+            pertemuan = pertemuan.toFloat(),
+            mkuliah = mkuliah
+        )
+
+        hasilAbsensi.value = HitungAbsensi.hitung(dataAbsensi)
 
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                val dataAbsensi =  AbsensiEntity(
-                    kehadiran = kehadiran.toFloat(),
-                    pertemuan = pertemuan.toFloat(),
-                    mkuliah = mkuliah
-                )
                 db.insert(dataAbsensi)
             }
         }
