@@ -3,18 +3,26 @@ package org.d3if4303.hitungabsensi.ui.hitung
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import org.d3if4303.hitungabsensi.R
 import org.d3if4303.hitungabsensi.data.KategoriPresensi
 import org.d3if4303.hitungabsensi.databinding.FragmentPerhitunganBinding
+import org.d3if4303.hitungabsensi.db.AbsensiDb
 
 class PerhitunganFragment : Fragment() {
 
-    private val viewModel: PerhitunganViewModel by viewModels()
+    private val viewModel: PerhitunganViewModel by lazy {
+        val db = AbsensiDb.getInstance(requireContext())
+        val factory = PerhitunganViewModelFactory(db.dao)
+        ViewModelProvider(this, factory).get(PerhitunganViewModel::class.java)
+    }
+
     private lateinit var binding: FragmentPerhitunganBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -57,6 +65,11 @@ class PerhitunganFragment : Fragment() {
             binding.kategoriTextView.text = getString(R.string.kategori_x,
                 getKategori(it.kategori))
             binding.buttonGroup.visibility = View.VISIBLE
+        })
+
+        viewModel.data.observe(viewLifecycleOwner, {
+            if (it == null) return@observe
+            Log.d("PerhitunganFragment", "Data Tersimpan. ID = ${it.id}")
         })
     }
 
