@@ -6,6 +6,7 @@ import android.text.TextUtils
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import org.d3if4303.hitungabsensi.R
@@ -14,6 +15,7 @@ import org.d3if4303.hitungabsensi.databinding.FragmentPerhitunganBinding
 
 class PerhitunganFragment : Fragment() {
 
+    private val viewModel: PerhitunganViewModel by viewModels()
     private lateinit var binding: FragmentPerhitunganBinding
     private lateinit var kategoriPresensi: KategoriPresensi
 
@@ -46,6 +48,18 @@ class PerhitunganFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewModel.getHasilAbsensi().observe(viewLifecycleOwner, {
+            if (it == null) return@observe
+            binding.absensiTextView.text = getString(R.string.persentase_x, it.absensi)
+            binding.kategoriTextView.text = getString(R.string.kategori_x,
+                getKategori(it.kategori))
+            binding.buttonGroup.visibility = View.VISIBLE
+        })
+    }
+
     private fun hitungAbsensi() {
         val kehadiran = binding.kehadiranEditText.text.toString()
         if (TextUtils.isEmpty(kehadiran)){
@@ -63,12 +77,17 @@ class PerhitunganFragment : Fragment() {
             Toast.makeText(context, R.string.kampus_invalid, Toast.LENGTH_LONG).show()
         }
         val mkuliah = selectedID == R.id.kampusTelkomRadioButton
-        val absensi =  100 * (kehadiran.toFloat() / pertemuan.toFloat())
-        val kategori = getKategori(absensi, mkuliah)
 
-        binding.absensiTextView.text = getString(R.string.persentase_x, absensi)
-        binding.kategoriTextView.text = getString(R.string.kategori_x, kategori)
-        binding.buttonGroup.visibility = View.VISIBLE
+        viewModel.hitungAbsensi(kehadiran, pertemuan, mkuliah)
+    }
+
+    private fun getKategori(kategori: KategoriPresensi): String {
+        val stringRes = when (kategori) {
+            KategoriPresensi.TIDAKAMAN -> R.string.tidakAman
+            KategoriPresensi.SANGATAMAN -> R.string.sangatAman
+            KategoriPresensi.AMAN -> R.string.aman
+        }
+        return getString(stringRes)
     }
 
     private fun shareData() {
@@ -88,27 +107,5 @@ class PerhitunganFragment : Fragment() {
         if (shareIntent.resolveActivity( requireActivity().packageManager) != null) {
             startActivity(shareIntent)
         }
-    }
-
-    private fun getKategori(absensi: Float, mkuliah: Boolean): String {
-        kategoriPresensi = if (mkuliah) {
-            when {
-                absensi < 75.0 -> KategoriPresensi.TIDAKAMAN
-                absensi >= 90.0 -> KategoriPresensi.SANGATAMAN
-                else -> KategoriPresensi.AMAN
-            }
-        } else {
-            when {
-                absensi < 70.0 -> KategoriPresensi.TIDAKAMAN
-                absensi >= 75.0 -> KategoriPresensi.SANGATAMAN
-                else -> KategoriPresensi.AMAN
-            }
-        }
-        val stringRes = when (kategoriPresensi) {
-            KategoriPresensi.TIDAKAMAN -> R.string.tidakAman
-            KategoriPresensi.SANGATAMAN -> R.string.sangatAman
-            KategoriPresensi.AMAN -> R.string.aman
-        }
-        return getString(stringRes)
     }
 }
