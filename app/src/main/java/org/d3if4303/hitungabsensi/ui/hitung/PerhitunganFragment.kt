@@ -1,4 +1,4 @@
-package org.d3if4303.hitungabsensi.ui
+package org.d3if4303.hitungabsensi.ui.hitung
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,7 +7,6 @@ import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import org.d3if4303.hitungabsensi.R
 import org.d3if4303.hitungabsensi.data.KategoriPresensi
@@ -17,18 +16,12 @@ class PerhitunganFragment : Fragment() {
 
     private val viewModel: PerhitunganViewModel by viewModels()
     private lateinit var binding: FragmentPerhitunganBinding
-    private lateinit var kategoriPresensi: KategoriPresensi
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         binding = FragmentPerhitunganBinding.inflate(layoutInflater, container, false)
         binding.button.setOnClickListener { hitungAbsensi() }
-        binding.tanggapanButton.setOnClickListener { view: View ->
-            view.findNavController().navigate(
-                PerhitunganFragmentDirections
-                    .actionPerhitunganFragmentToTanggapanFragment(kategoriPresensi)
-            )
-        }
+        binding.tanggapanButton.setOnClickListener { viewModel.mulaiNavigasi() }
         binding.shareButton.setOnClickListener { shareData() }
         setHasOptionsMenu(true)
         return binding.root
@@ -50,6 +43,13 @@ class PerhitunganFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel.getNavigasi().observe(viewLifecycleOwner, {
+            if (it == null) return@observe
+            findNavController().navigate(PerhitunganFragmentDirections
+                .actionPerhitunganFragmentToTanggapanFragment(it))
+            viewModel.selesaiNavigasi()
+        })
 
         viewModel.getHasilAbsensi().observe(viewLifecycleOwner, {
             if (it == null) return@observe

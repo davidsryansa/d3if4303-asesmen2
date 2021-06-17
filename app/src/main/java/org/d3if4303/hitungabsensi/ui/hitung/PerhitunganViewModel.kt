@@ -1,4 +1,4 @@
-package org.d3if4303.hitungabsensi.ui
+package org.d3if4303.hitungabsensi.ui.hitung
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,6 +10,9 @@ class PerhitunganViewModel: ViewModel() {
 
     //Hasil Absensi bisa null jika pengguna belum menghitung Absensi
     private val hasilAbsensi = MutableLiveData<HasilAbsensi?>()
+
+    // Navigasi akan bernilai null ketika tidak bernavigasi
+    private val navigasi = MutableLiveData<KategoriPresensi>()
 
     fun hitungAbsensi(kehadiran: String, pertemuan: String, mkuliah: Boolean){
         val absensi = 100 * (kehadiran.toFloat() / pertemuan.toFloat())
@@ -28,5 +31,16 @@ class PerhitunganViewModel: ViewModel() {
         }
         hasilAbsensi.value = HasilAbsensi (absensi, kategori)
     }
+
+    fun mulaiNavigasi() {
+        navigasi.value = hasilAbsensi.value?.kategori
+    }
+
+    fun selesaiNavigasi() {
+        navigasi.value = null
+    }
+
     fun getHasilAbsensi() : LiveData<HasilAbsensi?> = hasilAbsensi
+
+    fun getNavigasi(): LiveData<KategoriPresensi> = navigasi
 }
